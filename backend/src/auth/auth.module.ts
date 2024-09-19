@@ -2,10 +2,11 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import { Module } from '@nestjs/common';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+
 import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { jwtConstants } from './jwt/constants';
 

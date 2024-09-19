@@ -7,13 +7,13 @@ export class UpdateUserInput {
   @IsNumber()
   id: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   @IsString()
   @MinLength(6)
   password?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   @IsString()
   profile?: string;
