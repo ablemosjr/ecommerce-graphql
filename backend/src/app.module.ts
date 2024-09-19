@@ -1,12 +1,15 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
+
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { User } from './user/entities/user.entity';
-import { DatabaseType } from './enums/DatabaseType';
+import { DatabaseType } from './utils/enums/DatabaseType';
+import { ProductModule } from './products/product.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -29,6 +32,8 @@ import { DatabaseType } from './enums/DatabaseType';
     }),
     UserModule,
     AuthModule,
+    ProductModule,
+    CategoryModule,
   ],
   providers: [],
 })

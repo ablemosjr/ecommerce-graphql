@@ -2,6 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  id: Float!
+  name: String!
+  products: [Product!]!
+}
+
+input CreateCategoryDto {
+  name: String!
+}
+
+input CreateProductDto {
+  categoryId: Float!
+  description: String!
+  name: String!
+  price: Float!
+  quantity: Float!
+  sku: String!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
@@ -9,20 +28,52 @@ input CreateUserInput {
 }
 
 type Mutation {
+  createCategory(createCategoryInput: CreateCategoryDto!): Category!
+  createProduct(createProductInput: CreateProductDto!): Product!
   createUser(createUserInput: CreateUserInput!): User!
+  removeProduct(id: Float!): Boolean!
   removeUser(id: Float!): Boolean!
+  updateCategory(id: Float!, updateCategoryInput: UpdateCategoryDto!): Category!
+  updateProduct(id: Float!, updateProductInput: UpdateProductDto!): Product!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
+type Product {
+  category: Category!
+  description: String!
+  id: Float!
+  name: String!
+  price: Float!
+  quantity: Float!
+  sku: String!
+}
+
 type Query {
+  findCategoryById(id: Float!): Category!
   findOne(email: String!): User!
+  findProductById(id: Float!): Product!
+  getAllCategories: [Category!]!
+  getAllProducts: [Product!]!
   login(email: String!, password: String!): String!
+}
+
+input UpdateCategoryDto {
+  name: String
+}
+
+input UpdateProductDto {
+  categoryId: Float
+  description: String
+  name: String
+  price: Float
+  quantity: Float
+  sku: String
 }
 
 input UpdateUserInput {
   id: Float!
-  password: String!
-  profile: String!
+  password: String
+  profile: String
 }
 
 type User {
