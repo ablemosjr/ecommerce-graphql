@@ -10,6 +10,11 @@ import { User } from './user/entities/user.entity';
 import { DatabaseType } from './utils/enums/DatabaseType';
 import { ProductModule } from './products/product.module';
 import { CategoryModule } from './category/category.module';
+import { OrderModule } from './order/order.module';
+import { Product } from './products/entities/product.entity';
+import { Category } from './category/entities/category.entity';
+import { Order } from './order/entities/order.entity';
+import { OrderItem } from './order/entities/order-item.entity';
 
 @Module({
   imports: [
@@ -28,12 +33,13 @@ import { CategoryModule } from './category/category.module';
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [User],
+      entities: [User, Product, Category, Order, OrderItem],
     }),
     UserModule,
     AuthModule,
     ProductModule,
     CategoryModule,
+    OrderModule,
   ],
   providers: [],
 })
