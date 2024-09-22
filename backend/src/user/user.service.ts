@@ -16,9 +16,10 @@ export class UserService {
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
-    const { email, password, role } = createUserInput;
+    const { name, email, password, role } = createUserInput;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.usersRepository.create({
+      name,
       email,
       password: hashedPassword,
       role: role ?? UserRole.CUSTOMER,
@@ -36,12 +37,13 @@ export class UserService {
   }
 
   async update(id: number, updateUserInput: UpdateUserInput): Promise<void> {
-    const { password, profile } = updateUserInput;
+    const { name, password, profile } = updateUserInput;
     const hashedPassword = password
       ? await bcrypt.hash(password, 10)
       : undefined;
 
     await this.usersRepository.update(id, {
+      ...(name && { name }),
       ...(password && { password: hashedPassword }),
       ...(profile && { profile }),
     });
