@@ -37,9 +37,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type Mutation {
   createCategory(createCategoryInput: CreateCategoryDto!): Category!
   createOrder(createOrderDto: CreateOrderDto!): Order!
+  createPaymentIntent(orderId: Float!): PaymentResponse!
   createProduct(createProductInput: CreateProductDto!): Product!
   createUser(createUserInput: CreateUserInput!): User!
   removeProduct(id: Float!): Boolean!
@@ -75,10 +81,15 @@ input OrderItemDto {
 enum OrderStatus {
   CANCELED
   DELIVERED
+  PAID
   PENDING
   PLACED
   PROCESSING
   SHIPPED
+}
+
+type PaymentResponse {
+  response: JSON!
 }
 
 type Product {

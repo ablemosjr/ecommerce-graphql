@@ -1,8 +1,9 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import * as bodyParser from 'body-parser';
 
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
@@ -15,6 +16,7 @@ import { Product } from './products/entities/product.entity';
 import { Category } from './category/entities/category.entity';
 import { Order } from './order/entities/order.entity';
 import { OrderItem } from './order/entities/order-item.entity';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -40,7 +42,13 @@ import { OrderItem } from './order/entities/order-item.entity';
     ProductModule,
     CategoryModule,
     OrderModule,
+    PaymentModule,
   ],
-  providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(bodyParser.raw({ type: 'application/json' }))
+      .forRoutes('payment/webhook');
+  }
+}
