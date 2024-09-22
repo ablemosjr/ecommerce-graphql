@@ -1,6 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Order } from 'src/order/entities/order.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+
+import { Order } from 'src/order/entities/order.entity';
+import { UserRole } from 'src/utils/enums/UserRole';
 
 @Entity()
 @ObjectType('User')
@@ -10,6 +12,10 @@ export class User {
   id: number;
 
   @Field({ nullable: false })
+  @Column()
+  name: string;
+
+  @Field({ nullable: false })
   @Column({ unique: true })
   email: string;
 
@@ -17,13 +23,17 @@ export class User {
   @Column()
   password: string;
 
-  @Field({ nullable: true })
-  @Column({ default: 'customer', nullable: true })
-  role?: string; // 'admin' or 'customer' (enum?)
+  @Field(() => UserRole, { nullable: true })
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.CUSTOMER,
+  })
+  role?: UserRole;
 
   @Field({ nullable: true })
   @Column({ default: '' })
-  profile: string;
+  profile?: string;
 
   @Field(() => [Order])
   @OneToMany(() => Order, (order) => order.id)

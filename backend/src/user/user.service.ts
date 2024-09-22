@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { UserRole } from 'src/utils/enums/UserRole';
 
 @Injectable()
 export class UserService {
@@ -20,7 +21,7 @@ export class UserService {
     const user = this.usersRepository.create({
       email,
       password: hashedPassword,
-      role: role ?? 'customer',
+      role: role ?? UserRole.CUSTOMER,
     });
 
     return this.usersRepository.save(user);
