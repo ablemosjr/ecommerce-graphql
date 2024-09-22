@@ -28,8 +28,9 @@ input CreateProductDto {
 
 input CreateUserInput {
   email: String!
+  name: String!
   password: String!
-  role: String
+  role: UserRole
 }
 
 """
@@ -110,6 +111,7 @@ type Query {
   getAllCategories: [Category!]!
   getAllOrders: [Order!]!
   getAllProducts: [Product!]!
+  getInvoice(orderId: Float!): String!
   login(email: String!, password: String!): String!
 }
 
@@ -132,6 +134,7 @@ input UpdateProductDto {
 
 input UpdateUserInput {
   id: Float!
+  name: String
   password: String
   profile: String
 }
@@ -139,8 +142,14 @@ input UpdateUserInput {
 type User {
   email: String!
   id: Float!
+  name: String!
   orders: [Order!]!
   password: String!
   profile: String
-  role: String
+  role: UserRole
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
 }
