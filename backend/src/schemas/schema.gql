@@ -2,10 +2,28 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Cart {
+  id: Float!
+  items: [CartItem!]!
+  user: User!
+}
+
+type CartItem {
+  cart: Cart!
+  id: Float!
+  product: Product!
+  quantity: Float!
+}
+
 type Category {
   id: Float!
   name: String!
   products: [Product!]!
+}
+
+input CreateCardItemInput {
+  productId: Float!
+  quantity: Float!
 }
 
 input CreateCategoryDto {
@@ -44,13 +62,16 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 type Mutation {
+  addCartItem(createCartItemInput: CreateCardItemInput!): Cart!
   createCategory(createCategoryInput: CreateCategoryDto!): Category!
   createOrder(createOrderDto: CreateOrderDto!): Order!
   createPaymentIntent(orderId: Float!): PaymentResponse!
   createProduct(createProductInput: CreateProductDto!): Product!
   createUser(createUserInput: CreateUserInput!): User!
+  removeCartItem(itemId: Float!): Cart!
   removeProduct(id: Float!): Boolean!
   removeUser(id: Float!): Boolean!
+  updateCartItem(cartItemId: Float!, updateCartItemInput: UpdateCardItemInput!): Cart!
   updateCategory(id: Float!, updateCategoryInput: UpdateCategoryDto!): Category!
   updateOrderStatus(id: Float!, updateOrderDto: UpdateOrderDto!): Order!
   updateProduct(id: Float!, updateProductInput: UpdateProductDto!): Product!
@@ -94,6 +115,7 @@ type PaymentResponse {
 }
 
 type Product {
+  cartItems: [CartItem!]!
   category: Category!
   description: String!
   id: Float!
@@ -104,6 +126,7 @@ type Product {
 }
 
 type Query {
+  checkout: Cart!
   findCategoryById(id: Float!): Category!
   findOne(email: String!): User!
   findOrderById(id: Float!): Order!
@@ -111,8 +134,13 @@ type Query {
   getAllCategories: [Category!]!
   getAllOrders: [Order!]!
   getAllProducts: [Product!]!
+  getCartSummary: Cart!
   getInvoice(orderId: Float!): String!
   login(email: String!, password: String!): String!
+}
+
+input UpdateCardItemInput {
+  quantity: Float!
 }
 
 input UpdateCategoryDto {
@@ -140,6 +168,7 @@ input UpdateUserInput {
 }
 
 type User {
+  carts: [Cart!]!
   email: String!
   id: Float!
   name: String!

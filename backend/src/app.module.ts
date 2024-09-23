@@ -17,6 +17,7 @@ import { Category } from './category/entities/category.entity';
 import { Order } from './order/entities/order.entity';
 import { OrderItem } from './order/entities/order-item.entity';
 import { PaymentModule } from './payment/payment.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { PaymentModule } from './payment/payment.module';
     CategoryModule,
     OrderModule,
     PaymentModule,
+    CartModule,
   ],
 })
 export class AppModule implements NestModule {
