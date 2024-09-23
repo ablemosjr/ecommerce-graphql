@@ -6,9 +6,9 @@ import { Order } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { ProductService } from 'src/products/product.service';
 import { UserService } from 'src/user/user.service';
-import { CreateOrderDto } from './dto/create-order.dto';
+import { CreateOrderInput } from './dto/create-order.input';
 import { OrderStatus } from 'src/utils/enums/OrderStatus';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { UpdateOrderInput } from './dto/update-order.input';
 
 @Injectable()
 export class OrderService {
@@ -21,8 +21,8 @@ export class OrderService {
     private productService: ProductService,
   ) {}
 
-  async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
-    const { userId, items } = createOrderDto;
+  async createOrder(createOrderInput: CreateOrderInput): Promise<Order> {
+    const { userId, items } = createOrderInput;
     const user = await this.userService.findById(userId);
 
     if (!user) throw new NotFoundException('User not found');
@@ -80,13 +80,13 @@ export class OrderService {
 
   async updateOrderStatus(
     orderId: number,
-    updateOrderDto: UpdateOrderDto,
+    updateOrderInput: UpdateOrderInput,
   ): Promise<Order> {
     const order = await this.findOrderById(orderId);
 
     if (!order) throw new NotFoundException('Order not found');
 
-    order.status = updateOrderDto.status;
+    order.status = updateOrderInput.status;
 
     return await this.orderRepository.save(order);
   }

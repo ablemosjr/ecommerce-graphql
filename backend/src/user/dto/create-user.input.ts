@@ -6,6 +6,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
+
 import { UserRole } from 'src/utils/enums/UserRole';
 
 @InputType()

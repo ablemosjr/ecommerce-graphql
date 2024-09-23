@@ -26,16 +26,16 @@ input CreateCardItemInput {
   quantity: Float!
 }
 
-input CreateCategoryDto {
+input CreateCategoryInput {
   name: String!
 }
 
-input CreateOrderDto {
+input CreateOrderInput {
   items: [OrderItemDto!]!
   userId: Float!
 }
 
-input CreateProductDto {
+input CreateProductInput {
   categoryId: Float!
   description: String!
   name: String!
@@ -63,18 +63,18 @@ scalar JSON
 
 type Mutation {
   addCartItem(createCartItemInput: CreateCardItemInput!): Cart!
-  createCategory(createCategoryInput: CreateCategoryDto!): Category!
-  createOrder(createOrderDto: CreateOrderDto!): Order!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
   createPaymentIntent(orderId: Float!): PaymentResponse!
-  createProduct(createProductInput: CreateProductDto!): Product!
+  createProduct(createProductInput: CreateProductInput!): Product!
   createUser(createUserInput: CreateUserInput!): User!
   removeCartItem(itemId: Float!): Cart!
   removeProduct(id: Float!): Boolean!
   removeUser(id: Float!): Boolean!
   updateCartItem(cartItemId: Float!, updateCartItemInput: UpdateCardItemInput!): Cart!
-  updateCategory(id: Float!, updateCategoryInput: UpdateCategoryDto!): Category!
-  updateOrderStatus(id: Float!, updateOrderDto: UpdateOrderDto!): Order!
-  updateProduct(id: Float!, updateProductInput: UpdateProductDto!): Product!
+  updateCategory(id: Float!, updateCategoryInput: UpdateCategoryInput!): Category!
+  updateOrderStatus(id: Float!, updateOrderInput: UpdateOrderInput!): Order!
+  updateProduct(id: Float!, updateProductInput: UpdateProductInput!): Product!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
@@ -143,15 +143,15 @@ input UpdateCardItemInput {
   quantity: Float!
 }
 
-input UpdateCategoryDto {
+input UpdateCategoryInput {
   name: String
 }
 
-input UpdateOrderDto {
+input UpdateOrderInput {
   status: OrderStatus!
 }
 
-input UpdateProductDto {
+input UpdateProductInput {
   categoryId: Float
   description: String
   name: String

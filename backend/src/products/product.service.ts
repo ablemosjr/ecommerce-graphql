@@ -3,8 +3,8 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Product } from './entities/product.entity';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { CreateProductInput } from './dto/create-product.input';
+import { UpdateProductInput } from './dto/update-product.input';
 import { Category } from 'src/category/entities/category.entity';
 
 @Injectable()
@@ -16,8 +16,8 @@ export class ProductService {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-    const { categoryId, ...rest } = createProductDto;
+  async createProduct(createProducInput: CreateProductInput): Promise<Product> {
+    const { categoryId, ...rest } = createProducInput;
 
     const category = await this.categoryRepository.findOne({
       where: { id: categoryId },
@@ -46,10 +46,10 @@ export class ProductService {
 
   async updateProduct(
     id: number,
-    updateProductDto: UpdateProductDto,
+    updateProductInput: UpdateProductInput,
   ): Promise<Product> {
     const product = await this.findProductById(id);
-    const { categoryId, ...rest } = await updateProductDto;
+    const { categoryId, ...rest } = await updateProductInput;
 
     if (categoryId) {
       const category = await this.categoryRepository.findOne({

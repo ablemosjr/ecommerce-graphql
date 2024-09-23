@@ -2,16 +2,16 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { CreateOrderInput } from './dto/create-order.input';
+import { UpdateOrderInput } from './dto/update-order.input';
 
 @Resolver(() => Order)
 export class OrderResolver {
   constructor(private readonly orderService: OrderService) {}
 
   @Mutation(() => Order)
-  createOrder(@Args('createOrderDto') createOrderDto: CreateOrderDto) {
-    return this.orderService.createOrder(createOrderDto);
+  createOrder(@Args('createOrderInput') createOrderInput: CreateOrderInput) {
+    return this.orderService.createOrder(createOrderInput);
   }
 
   @Query(() => [Order])
@@ -27,9 +27,9 @@ export class OrderResolver {
   @Mutation(() => Order)
   updateOrderStatus(
     @Args('id') id: number,
-    @Args('updateOrderDto') updateOrderDto: UpdateOrderDto,
+    @Args('updateOrderInput') updateOrderInput: UpdateOrderInput,
   ) {
-    return this.orderService.updateOrderStatus(id, updateOrderDto);
+    return this.orderService.updateOrderStatus(id, updateOrderInput);
   }
 
   // At the moment the business model does not offer to exclude a purchase order

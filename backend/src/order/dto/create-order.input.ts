@@ -22,7 +22,7 @@ class OrderItemDto {
 }
 
 @InputType()
-export class CreateOrderDto {
+export class CreateOrderInput {
   @Field()
   @IsNotEmpty()
   @IsNumber()

@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { createWriteStream } from 'fs';
 import { promises as fsPromises } from 'fs';
 import * as fs from 'fs';
 import * as PDFDocument from 'pdfkit';

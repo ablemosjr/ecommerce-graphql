@@ -7,9 +7,9 @@ import {
   Res,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import Stripe from 'stripe';
 
 import { PaymentService } from './payment.service';
-import Stripe from 'stripe';
 
 @Controller('payment')
 export class PaymentController {
