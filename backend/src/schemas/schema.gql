@@ -139,6 +139,7 @@ type Product {
 
 type Query {
   checkout: Cart!
+  filterProducts(categoryId: Float, maxPrice: Float, minPrice: Float, minRating: Float): [Product!]!
   findCategoryById(id: Float!): Category!
   findOne(email: String!): User!
   findOrderById(id: Float!): Order!
@@ -150,6 +151,7 @@ type Query {
   getInvoice(orderId: Float!): String!
   getProductReviews(productId: Float!): [Review!]!
   login(email: String!, password: String!): String!
+  searchProducts(query: String!): [Product!]!
   viewWishlist: [Wishlist!]!
 }
 
