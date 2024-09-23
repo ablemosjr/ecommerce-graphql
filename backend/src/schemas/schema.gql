@@ -44,6 +44,11 @@ input CreateProductInput {
   sku: String!
 }
 
+input CreateReviewInput {
+  comment: String!
+  rating: Float!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
@@ -63,11 +68,13 @@ scalar JSON
 
 type Mutation {
   addCartItem(createCartItemInput: CreateCardItemInput!): Cart!
+  addReview(createReviewInput: CreateReviewInput!, productId: Float!): Review!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   createPaymentIntent(orderId: Float!): PaymentResponse!
   createProduct(createProductInput: CreateProductInput!): Product!
   createUser(createUserInput: CreateUserInput!): User!
+  deleteReview(reviewId: Float!): Boolean!
   removeCartItem(itemId: Float!): Cart!
   removeProduct(id: Float!): Boolean!
   removeUser(id: Float!): Boolean!
@@ -75,6 +82,7 @@ type Mutation {
   updateCategory(id: Float!, updateCategoryInput: UpdateCategoryInput!): Category!
   updateOrderStatus(id: Float!, updateOrderInput: UpdateOrderInput!): Order!
   updateProduct(id: Float!, updateProductInput: UpdateProductInput!): Product!
+  updateReview(reviewId: Float!, updateReviewInput: UpdateReviewInput!): Review!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
@@ -122,6 +130,7 @@ type Product {
   name: String!
   price: Float!
   quantity: Float!
+  reviews: [Review!]!
   sku: String!
 }
 
@@ -136,7 +145,16 @@ type Query {
   getAllProducts: [Product!]!
   getCartSummary: Cart!
   getInvoice(orderId: Float!): String!
+  getProductReviews(productId: Float!): [Review!]!
   login(email: String!, password: String!): String!
+}
+
+type Review {
+  comment: String!
+  id: Float!
+  product: Product!
+  rating: Float!
+  user: User!
 }
 
 input UpdateCardItemInput {
@@ -160,6 +178,11 @@ input UpdateProductInput {
   sku: String
 }
 
+input UpdateReviewInput {
+  comment: String!
+  rating: Float!
+}
+
 input UpdateUserInput {
   id: Float!
   name: String
@@ -175,6 +198,7 @@ type User {
   orders: [Order!]!
   password: String!
   profile: String
+  reviews: [Review!]!
   role: UserRole
 }
 

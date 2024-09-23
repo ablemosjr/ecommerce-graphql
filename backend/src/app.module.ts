@@ -18,6 +18,10 @@ import { Order } from './order/entities/order.entity';
 import { OrderItem } from './order/entities/order-item.entity';
 import { PaymentModule } from './payment/payment.module';
 import { CartModule } from './cart/cart.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { Cart } from './cart/entities/cart.entity';
+import { CartItem } from './cart/entities/cart-item.entity';
+import { Review } from './reviews/entities/review.entity';
 
 @Module({
   imports: [
@@ -36,7 +40,16 @@ import { CartModule } from './cart/cart.module';
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
-      entities: [User, Product, Category, Order, OrderItem],
+      entities: [
+        User,
+        Product,
+        Category,
+        Order,
+        OrderItem,
+        Cart,
+        CartItem,
+        Review,
+      ],
     }),
     UserModule,
     AuthModule,
@@ -45,6 +58,7 @@ import { CartModule } from './cart/cart.module';
     OrderModule,
     PaymentModule,
     CartModule,
+    ReviewsModule,
   ],
 })
 export class AppModule implements NestModule {

@@ -4,6 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Order } from 'src/order/entities/order.entity';
 import { UserRole } from 'src/utils/enums/UserRole';
 import { Cart } from 'src/cart/entities/cart.entity';
+import { Review } from 'src/reviews/entities/review.entity';
 
 @Entity()
 @ObjectType('User')
@@ -43,4 +44,8 @@ export class User {
   @Field(() => [Cart])
   @OneToMany(() => Cart, (cart) => cart.user)
   carts: Cart[];
+
+  @Field(() => [Review])
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
 }
