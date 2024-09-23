@@ -5,6 +5,7 @@ import { Order } from 'src/order/entities/order.entity';
 import { UserRole } from 'src/utils/enums/UserRole';
 import { Cart } from 'src/cart/entities/cart.entity';
 import { Review } from 'src/reviews/entities/review.entity';
+import { Wishlist } from 'src/wishlist/entities/wishlist.entity';
 
 @Entity()
 @ObjectType('User')
@@ -48,4 +49,8 @@ export class User {
   @Field(() => [Review])
   @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];
+
+  @Field(() => [Wishlist])
+  @OneToMany(() => Wishlist, (wishlist) => wishlist.user)
+  wishlist: Wishlist[];
 }

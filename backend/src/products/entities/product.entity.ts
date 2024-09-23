@@ -10,6 +10,7 @@ import {
 import { Category } from 'src/category/entities/category.entity';
 import { CartItem } from 'src/cart/entities/cart-item.entity';
 import { Review } from 'src/reviews/entities/review.entity';
+import { Wishlist } from 'src/wishlist/entities/wishlist.entity';
 
 @Entity()
 @ObjectType('Product')
@@ -49,4 +50,8 @@ export class Product {
   @Field(() => [Review])
   @OneToMany(() => Review, (review) => review.product)
   reviews: Review[];
+
+  @Field(() => [Wishlist])
+  @OneToMany(() => Wishlist, (wishlist) => wishlist.product)
+  wishlists: Wishlist[];
 }

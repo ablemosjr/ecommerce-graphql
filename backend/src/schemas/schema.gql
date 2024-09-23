@@ -69,6 +69,7 @@ scalar JSON
 type Mutation {
   addCartItem(createCartItemInput: CreateCardItemInput!): Cart!
   addReview(createReviewInput: CreateReviewInput!, productId: Float!): Review!
+  addToWishlist(productId: Float!): Wishlist!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   createPaymentIntent(orderId: Float!): PaymentResponse!
@@ -76,6 +77,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   deleteReview(reviewId: Float!): Boolean!
   removeCartItem(itemId: Float!): Cart!
+  removeFromWishlist(productId: Float!): Boolean!
   removeProduct(id: Float!): Boolean!
   removeUser(id: Float!): Boolean!
   updateCartItem(cartItemId: Float!, updateCartItemInput: UpdateCardItemInput!): Cart!
@@ -132,6 +134,7 @@ type Product {
   quantity: Float!
   reviews: [Review!]!
   sku: String!
+  wishlists: [Wishlist!]!
 }
 
 type Query {
@@ -147,6 +150,7 @@ type Query {
   getInvoice(orderId: Float!): String!
   getProductReviews(productId: Float!): [Review!]!
   login(email: String!, password: String!): String!
+  viewWishlist: [Wishlist!]!
 }
 
 type Review {
@@ -200,9 +204,16 @@ type User {
   profile: String
   reviews: [Review!]!
   role: UserRole
+  wishlist: [Wishlist!]!
 }
 
 enum UserRole {
   ADMIN
   CUSTOMER
+}
+
+type Wishlist {
+  id: Float!
+  product: Product!
+  user: User!
 }

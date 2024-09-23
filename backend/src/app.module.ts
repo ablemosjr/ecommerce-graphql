@@ -22,6 +22,7 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { Cart } from './cart/entities/cart.entity';
 import { CartItem } from './cart/entities/cart-item.entity';
 import { Review } from './reviews/entities/review.entity';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { Review } from './reviews/entities/review.entity';
     PaymentModule,
     CartModule,
     ReviewsModule,
+    WishlistModule,
   ],
 })
 export class AppModule implements NestModule {
